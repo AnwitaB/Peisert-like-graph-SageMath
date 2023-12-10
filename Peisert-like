@@ -1,0 +1,22 @@
+def Peisertlike(n):
+    A = Integers(n)
+    Aunits = A.unit_group()
+    phin = len(Aunits)
+    g = Aunits.gen()
+    G1 = [g^(4*j) for j in range(phin/4)]
+    G2 = [g*x for x in G1]
+    GG = G1 + G2
+    Gr = Graph([A, lambda i,j: (i-j) in GG])
+    return Gr
+
+def main():
+    print("Enter the value of prime p congruent to 1 mod 8")
+    p=int(input())
+    print("Enter the value of positive integer r")
+    r=int(input())
+    q=int(pow(p,r))
+    G=Peisertlike(q)
+    print("In the polynomial below, the coefficient of t^3 gives the number of triangles, and the coefficient of t^4 gives the number of cliques of order four.")
+    print(G.clique_polynomial())
+    
+main()
